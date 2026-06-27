@@ -785,14 +785,6 @@
             text-align: center;
         }
 
-        .carousel-desc {
-            font-size: 1rem;
-            color: #ccd0d4;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
-            line-height: 1.6;
-        }
-
         /* Slider elements */
         .slide-container-outer {
             position: relative;
@@ -898,7 +890,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin: 20px 0 35px 0;
+            margin-top: 20px;
         }
 
         .dot {
@@ -915,70 +907,6 @@
             background: var(--accent-color);
             box-shadow: 0 0 8px var(--accent-color);
             transform: scale(1.2);
-        }
-
-        /* Caption copier panel */
-        .caption-container {
-            background: rgba(0,0,0,0.5);
-            border-radius: 8px;
-            border: 1px solid rgba(255,255,255,0.05);
-            padding: 25px;
-            text-align: left;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .caption-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 10px;
-        }
-
-        .caption-title {
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: bold;
-            color: var(--accent-color);
-        }
-
-        .copy-btn {
-            background: transparent;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            font-weight: bold;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .copy-btn:hover {
-            background: var(--accent-color);
-            color: #000;
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .theme-plur .copy-btn:hover {
-            color: #fff;
-        }
-
-        .caption-text-area {
-            font-family: sans-serif;
-            font-size: 0.9rem;
-            line-height: 1.6;
-            color: #ccc;
-            white-space: pre-line;
-            max-height: 180px;
-            overflow-y: auto;
-            background: rgba(0,0,0,0.3);
-            padding: 15px;
-            border-radius: 4px;
         }
 
         /* Social Hub Grid */
@@ -1266,19 +1194,19 @@
                 text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
             }
             15% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 255, 0, 0.75);
             }
             49% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 255, 0, 0.75);
             }
             50% {
                 text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0.025em 0 rgba(0, 255, 0, 0.75), 0 0.05em 0 rgba(0, 0, 255, 0.75);
             }
             99% {
-                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0.025em 0 rgba(0, 255, 0, 0.75), 0 0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0.025em 0 rgba(0, 255, 0, 0.75), 0 0.05em 0 rgba(0, 255, 0, 0.75);
             }
             100% {
-                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75);
             }
         }
 
@@ -1546,16 +1474,12 @@
         </div>
     </section>
 
-    <!-- Instagram Carousel Section -->
+    <!-- Lore Gallery Section -->
     <section class="carousel-section" id="instagram-carousel">
         <div class="container">
-            <h2 class="section-title">Instagram Pinned Post</h2>
+            <h2 class="section-title" id="gallery-title">The Lore Gallery</h2>
             
-            <div class="carousel-card">
-                <p class="carousel-desc">
-                    Below is the custom-generated 5-slide **Instagram Carousel** designed to be pinned to their Instagram profile. It explains the core narrative: bridging spooky theatrical art with genuine community connection.
-                </p>
-
+            <div class="carousel-card" style="padding-bottom: 30px;">
                 <!-- Interactive slider -->
                 <div class="slide-container-outer">
                     <button class="slider-arrow prev" id="slide-prev" aria-label="Previous Slide">◀</button>
@@ -1566,7 +1490,7 @@
                         <div class="carousel-slide">
                             <img src="slide1.png" alt="Who is The Rave Momo Slide 1">
                             <div class="slide-info-overlay">
-                                <div class="slide-num">Slide 1 / 5</div>
+                                <div class="slide-num">Chapter 1</div>
                                 <div class="slide-title">Who is The Rave Momo?</div>
                                 <div class="slide-desc">Introducing the Creepypasta Cosplay performance taking over the EDM festival circuit. Nice to creep you! 👻🫶🏼</div>
                             </div>
@@ -1576,7 +1500,7 @@
                         <div class="carousel-slide">
                             <img src="slide2.png" alt="The Art of Duality Slide 2">
                             <div class="slide-info-overlay">
-                                <div class="slide-num">Slide 2 / 5</div>
+                                <div class="slide-num">Chapter 2</div>
                                 <div class="slide-title">The Art of Gothic Cosplay</div>
                                 <div class="slide-desc">Bringing modern theatricality, dark aesthetics, and immersive spectacle directly to the dancefloor.</div>
                             </div>
@@ -1586,7 +1510,7 @@
                         <div class="carousel-slide">
                             <img src="slide3.png" alt="The Soundboard Track Slide 3">
                             <div class="slide-info-overlay">
-                                <div class="slide-num">Slide 3 / 5</div>
+                                <div class="slide-num">Chapter 3</div>
                                 <div class="slide-title">The Sounds of the Shadows</div>
                                 <div class="slide-desc">From pulsing industrial acid techno to heavy bass. Stream the official single: THERAVEMOMO on SoundCloud.</div>
                             </div>
@@ -1596,7 +1520,7 @@
                         <div class="carousel-slide">
                             <img src="slide4.png" alt="The PLUR Duality Slide 4">
                             <div class="slide-info-overlay">
-                                <div class="slide-num">Slide 4 / 5</div>
+                                <div class="slide-num">Chapter 4</div>
                                 <div class="slide-title">Spooky Mask, Pure PLUR Heart</div>
                                 <div class="slide-desc">Behind the mask is a soul dedicated to safety, fire disaster relief, and trading custom Kandi.</div>
                             </div>
@@ -1606,7 +1530,7 @@
                         <div class="carousel-slide">
                             <img src="slide5.png" alt="Interaction Guide Slide 5">
                             <div class="slide-info-overlay">
-                                <div class="slide-num">Slide 5 / 5</div>
+                                <div class="slide-num">Chapter 5</div>
                                 <div class="slide-title">Unlocking the Connection</div>
                                 <div class="slide-desc">How to interact: approach with good vibes, ask for a photo, trade some kandi! Spreading peace and love under the bass.</div>
                             </div>
@@ -1615,49 +1539,12 @@
                 </div>
 
                 <!-- Slider indicators -->
-                <div class="slider-dots">
+                <div class="slider-dots" style="margin-bottom: 0;">
                     <div class="dot active" data-index="0"></div>
                     <div class="dot" data-index="1"></div>
                     <div class="dot" data-index="2"></div>
                     <div class="dot" data-index="3"></div>
                     <div class="dot" data-index="4"></div>
-                </div>
-
-                <!-- Instagram Caption Copier -->
-                <div class="caption-container">
-                    <div class="caption-header">
-                        <span class="caption-title">📋 Copy Instagram Caption</span>
-                        <button class="copy-btn" id="btn-copy-caption">Copy Text</button>
-                    </div>
-                    <div class="caption-text-area" id="caption-text-content">
-👻 WHO IS THE RAVE MOMO? 🫶🏼
-
-If you've been raving around the West Coast (EDC Las Vegas, Beyond Wonderland, Countdown), you might have spotted a tall, eerie figure silently weaving through the crowd. Wide eyes. Disjointed, slow-motion movements. Staring from the shadows.
-
-Yes, that’s me: The Rave Momo! 👻
-
-There’s a lot of talk, a lot of urban legends, and a lot of whispers. So let's lay it all out:
-
-🎭 THE COLD FACTS:
-Yes, the mask is a tribute to the infamous 2018 WhatsApp Creepypasta legend. It's theatrical, immersive gothic art meant to bring raw, cinematic thrills to the heavy techno and bass drops.
-
-💖 THE REAL TRUTH:
-Behind the scary mask is a heart strictly dedicated to PLUR. I’m out here sober, trading custom Kandi, handing out tiny glowing trinkets, keeping our fellow ravers safe, and actively raising funds for local disaster relief (like the Palisades wildfire efforts!).
-
-🔊 THE VIBE:
-My mission is simple: to prove that you can’t judge a book by its cover, or a raver by their mask. Raves are a sanctuary where even the "monsters" are safe, loved, and gentle.
-
-👉 HOW TO INTERACT WHEN YOU SPOT ME:
-1. Come say hi with good vibes!
-2. Ask for a high-quality photo!
-3. Trade some custom Kandi or swap a trinket!
-
-Stream my official single THERAVEMOMO on SoundCloud/YouTube now! Link in bio. ⛓️🎧
-
-Nice to creep you! 💀✨
-
-#TheRaveMomo #RaveMomo #EdcMomo #PlurMomo #InsomniacEvents #EdcLasVegas #BeyondWonderland #CountdownRave #Dubstep #DarkTechno #PlurLife #KandiTrader #RaveCulture
-                    </div>
                 </div>
 
             </div>
@@ -1839,6 +1726,7 @@ Nice to creep you! 💀✨
         const bookingTag = document.getElementById('booking-tag');
         const successToast = document.getElementById('success-toast');
         const submitBtn = document.getElementById('submit-btn');
+        const galleryTitle = document.getElementById('gallery-title');
 
         // SVG details
         const svgMouth = document.getElementById('svg-mouth');
@@ -1866,6 +1754,8 @@ Nice to creep you! 💀✨
                 loreQuote.innerHTML = '"PEACE, LOVE, UNITY, RESPECT." 💖🌈';
                 loreP2.innerHTML = 'From helping victims of local wildfires (like the Palisades wildfire relief efforts) to keeping crowd control safe, this project is proof that you can\'t judge a raver by their mask. It\'s cosplay with a deeply positive purpose, spreading peace and happiness under the bass.';
                 
+                galleryTitle.textContent = "The Memory Album";
+
                 bookingTitle.textContent = 'Collab & Create Joy';
                 bookingTag.textContent = 'Inquire about festival bookings, charitable events, community meet-ups, or positive creative collabs.';
                 
@@ -1895,6 +1785,8 @@ Nice to creep you! 💀✨
                 loreQuote.innerHTML = '"NICE TO CREEP YOU!" 👻🫶🏼';
                 loreP2.innerHTML = 'This project explores the fascinating intersection of internet horror culture and rave ethos. While the visual aesthetic is drawn directly from the 2018 WhatsApp creepypasta urban legend, the execution is entirely built on PLUR. It acts as a live, highly-engaging performance that challenges the standard rave experience.';
                 
+                galleryTitle.textContent = "The Lore Gallery";
+
                 bookingTitle.textContent = 'Secure An Appearance';
                 bookingTag.textContent = 'Book The Rave Momo for official festival engagements, club appearances, music video cameos, or collaborations.';
                 
@@ -2218,6 +2110,14 @@ Nice to creep you! 💀✨
         }
 
         // --- SEQUENCER SCHEDULER ---
+        const NOTES = {
+            A1: 55.00, Bb1: 58.27, Gs1: 51.91,
+            A2: 110.00, C2: 65.41, D2: 73.42, B2: 98.00, Gs2: 103.83,
+            A3: 220.00, C3: 130.81, E3: 164.81, F3: 174.61, G3: 196.00, B3: 246.94,
+            A4: 440.00, C4: 261.63, E4: 329.63, F4: 349.23, G4: 392.00, B4: 493.88, D4: 293.66,
+            C5: 523.25, Eb5: 622.25, E5: 659.25
+        };
+
         function scheduleNote(step, time) {
             if (currentTrack === 'theravemomo') {
                 if (step % 4 === 0) synthKick(time);
@@ -2456,17 +2356,12 @@ Nice to creep you! 💀✨
         const btnPrev = document.getElementById('slide-prev');
         const btnNext = document.getElementById('slide-next');
         const dots = document.querySelectorAll('.dot');
-        const btnCopy = document.getElementById('btn-copy-caption');
-        const captionContent = document.getElementById('caption-text-content');
         
         let slideIndex = 0;
         const totalSlides = 5;
 
         function updateSlider() {
-            // Slide transition translate offset
             slideWrapper.style.transform = `translateX(-${slideIndex * 20}%)`;
-            
-            // Sync indicators/dots
             dots.forEach(dot => dot.classList.remove('active'));
             dots[slideIndex].classList.add('active');
         }
@@ -2485,26 +2380,6 @@ Nice to creep you! 💀✨
             dot.addEventListener('click', function() {
                 slideIndex = parseInt(this.getAttribute('data-index'));
                 updateSlider();
-            });
-        });
-
-        // Copy caption text with navigator feedback
-        btnCopy.addEventListener('click', () => {
-            const tempText = captionContent.textContent.trim();
-            navigator.clipboard.writeText(tempText).then(() => {
-                btnCopy.textContent = "Copied! ✓";
-                btnCopy.style.borderColor = "var(--accent-color)";
-                btnCopy.style.background = "var(--accent-color)";
-                btnCopy.style.color = "#000";
-                
-                setTimeout(() => {
-                    btnCopy.textContent = "Copy Text";
-                    btnCopy.style.borderColor = "var(--accent-color)";
-                    btnCopy.style.background = "transparent";
-                    btnCopy.style.color = "var(--accent-color)";
-                }, 2500);
-            }).catch(err => {
-                console.log("Failed to copy text: ", err);
             });
         });
 
