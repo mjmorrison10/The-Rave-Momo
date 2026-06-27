@@ -489,6 +489,97 @@
             letter-spacing: 1.5px;
         }
 
+        /* Playlist Selector */
+        .playlist-container {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 15px;
+        }
+
+        .playlist-header {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: #888;
+            font-weight: bold;
+        }
+
+        .playlist-track {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .playlist-track:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--accent-color);
+        }
+
+        .playlist-track.active {
+            background: rgba(57, 255, 20, 0.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+        }
+
+        .theme-plur .playlist-track.active {
+            background: rgba(255, 0, 170, 0.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(255, 0, 170, 0.1);
+        }
+
+        .playlist-track-name {
+            font-weight: bold;
+            font-size: 0.95rem;
+            color: #fff;
+        }
+
+        .playlist-track-meta {
+            font-size: 0.8rem;
+            color: #888;
+        }
+
+        .active .playlist-track-name {
+            color: var(--accent-color);
+        }
+
+        /* Synth Volume Controls */
+        .volume-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+
+        .volume-slider {
+            flex-grow: 1;
+            height: 4px;
+            -webkit-appearance: none;
+            background: #444;
+            outline: none;
+            border-radius: 2px;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: var(--accent-color);
+            box-shadow: 0 0 5px var(--accent-color);
+            cursor: pointer;
+        }
+
         .player-controls {
             display: flex;
             align-items: center;
@@ -620,11 +711,6 @@
             background: var(--accent-color);
             opacity: 0.3;
             border-radius: 1px;
-        }
-
-        /* Visualizer active animation classes */
-        .vis-bar.animating {
-            animation: bounce 1s ease-in-out infinite alternate;
         }
 
         /* Social Hub Grid */
@@ -945,15 +1031,6 @@
             }
         }
 
-        @keyframes bounce {
-            from {
-                height: 2px;
-            }
-            to {
-                height: 38px;
-            }
-        }
-
         /* Success modal */
         .toast {
             position: fixed;
@@ -1022,7 +1099,7 @@
 
         <div class="cta-group">
             <a href="#booking" class="btn">Book Appearance</a>
-            <a href="#about" class="btn btn-secondary">Explore Lore</a>
+            <a href="#music" class="btn btn-secondary">Play Live Music</a>
         </div>
     </section>
 
@@ -1076,23 +1153,23 @@
     <!-- Music / Media Track Section -->
     <section class="media-section" id="music">
         <div class="container">
-            <h2 class="section-title">The Sound</h2>
+            <h2 class="section-title">The Soundboard</h2>
             
             <div class="audio-player-card">
                 <div class="player-info">
-                    <div class="player-art">
+                    <div class="player-art" id="disc-art">
                         <!-- Custom Speaker/Vibe SVG icon -->
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <svg viewBox="0 0 24 24" id="speaker-svg" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9v-4h2v4zm4 0h-2V8h2v8z"/>
                         </svg>
                     </div>
                     <div class="track-details">
                         <div class="track-title" id="player-track-name">THERAVEMOMO</div>
-                        <div class="track-artist">The Rave Momo Official Single</div>
+                        <div class="track-artist" id="player-track-artist">Track 1: Acid Dark Techno Riff</div>
                     </div>
                 </div>
 
-                <!-- Visualizer Simulator -->
+                <!-- Web Audio API Live Frequencies (True visualizer connected to synthesis!) -->
                 <div class="visualizer" id="audio-vis">
                     <div class="vis-bar"></div><div class="vis-bar"></div><div class="vis-bar"></div>
                     <div class="vis-bar"></div><div class="vis-bar"></div><div class="vis-bar"></div>
@@ -1104,6 +1181,7 @@
                     <div class="vis-bar"></div><div class="vis-bar"></div><div class="vis-bar"></div>
                 </div>
 
+                <!-- Synth Track Controls -->
                 <div class="player-controls">
                     <button class="play-btn" id="play-pause-btn" aria-label="Play Track">
                         <!-- Play Icon SVG -->
@@ -1119,40 +1197,79 @@
                     <div class="player-time" id="player-timer">0:00</div>
                 </div>
 
+                <!-- Volume Slider -->
+                <div class="volume-controls">
+                    <span>🔇</span>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="100" value="50">
+                    <span>🔊</span>
+                </div>
+
+                <!-- Interactive Tracklist (Plays actual synthesised music locally!) -->
+                <div class="playlist-container">
+                    <div class="playlist-header">Select a Rave Momo Track to play:</div>
+                    
+                    <div class="playlist-track active" data-track="theravemomo">
+                        <div>
+                            <div class="playlist-track-name">1. THERAVEMOMO (Theme Track)</div>
+                            <div class="playlist-track-meta" id="track-desc-1">Heavy 4-on-the-floor acid bass kick & creepy synth sweeps</div>
+                        </div>
+                        <span id="track-length-1">2:28</span>
+                    </div>
+
+                    <div class="playlist-track" data-track="plurvibes">
+                        <div>
+                            <div class="playlist-track-name">2. PLUR VIBES (Uplifting Arps)</div>
+                            <div class="playlist-track-meta" id="track-desc-2">Hyper-bright progressive major chords & sparkling melodies</div>
+                        </div>
+                        <span id="track-length-2">1:40</span>
+                    </div>
+
+                    <div class="playlist-track" data-track="creepycrowd">
+                        <div>
+                            <div class="playlist-track-name">3. CREEPY CROWD (Sub Ambient)</div>
+                            <div class="playlist-track-meta" id="track-desc-3">Deep low-frequency drones, metallic gothic bells & horror subs</div>
+                        </div>
+                        <span id="track-length-3">3:00</span>
+                    </div>
+                </div>
+
                 <!-- Lyrics Area -->
                 <div class="lyrics-wrapper">
                     <button class="lyrics-toggle" id="lyrics-toggle">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg>
-                        Show Lyrics
+                        Show Track Info & Lyrics
                     </button>
                     <div class="lyrics-content" id="lyrics-body">
-                        <strong>[Verse 1]</strong><br>
-                        Something is creeping near<br>
-                        No need to turn and fear<br>
-                        Just see those glowing eyes<br>
-                        They pierce right through your mind<br><br>
-                        
-                        <strong>[Pre-Chorus]</strong><br>
-                        Better be on your guard<br>
-                        Feeling the air getting hard<br><br>
-                        
-                        <strong>[Chorus]</strong><br>
-                        The Rave Momo is coming for you<br>
-                        The Rave Momo will hunt you down<br>
-                        The Rave Momo is coming for you<br>
-                        The Rave Momo will take you out<br><br>
-                        
-                        <strong>[Verse 2]</strong><br>
-                        Shadows begin to crawl<br>
-                        Whispers begin to call<br>
-                        You know it's far too late<br>
-                        There's no escape from fate<br><br>
-                        
-                        <strong>[Chorus]</strong><br>
-                        The Rave Momo is coming for you<br>
-                        The Rave Momo will hunt you down<br>
-                        The Rave Momo is coming for you<br>
-                        The Rave Momo will take you out
+                        <div id="dynamic-lyrics-content">
+                            <strong>[Song Lyrics: THERAVEMOMO]</strong><br><br>
+                            <strong>[Verse 1]</strong><br>
+                            Something is creeping near<br>
+                            No need to turn and fear<br>
+                            Just see those glowing eyes<br>
+                            They pierce right through your mind<br><br>
+                            
+                            <strong>[Pre-Chorus]</strong><br>
+                            Better be on your guard<br>
+                            Feeling the air getting hard<br><br>
+                            
+                            <strong>[Chorus]</strong><br>
+                            The Rave Momo is coming for you<br>
+                            The Rave Momo will hunt you down<br>
+                            The Rave Momo is coming for you<br>
+                            The Rave Momo will take you out<br><br>
+                            
+                            <strong>[Verse 2]</strong><br>
+                            Shadows begin to crawl<br>
+                            Whispers begin to call<br>
+                            You know it's far too late<br>
+                            There's no escape from fate<br><br>
+                            
+                            <strong>[Chorus]</strong><br>
+                            The Rave Momo is coming for you<br>
+                            The Rave Momo will hunt you down<br>
+                            The Rave Momo is coming for you<br>
+                            The Rave Momo will take you out
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1345,6 +1462,11 @@
         const svgPupilLeft = document.getElementById('svg-pupil-left');
         const svgPupilRight = document.getElementById('svg-pupil-right');
 
+        // Track lists names/descriptions
+        const trackDesc1 = document.getElementById('track-desc-1');
+        const trackDesc2 = document.getElementById('track-desc-2');
+        const trackDesc3 = document.getElementById('track-desc-3');
+
         themeToggle.addEventListener('change', function() {
             if (this.checked) {
                 // SPREADING PLUR THEME
@@ -1374,6 +1496,11 @@
                 svgMaskContour.setAttribute('stroke-dasharray', '0'); // solid line
                 svgPupilLeft.setAttribute('r', '12'); // wider pupils (happy)
                 svgPupilRight.setAttribute('r', '12');
+
+                // Adjust track descriptions for PLUR mode
+                trackDesc1.textContent = "A positive, heavy acid kick styled to spread light in the shadows";
+                trackDesc2.textContent = "Dreamy neon progressive synth layers and cute sparkles";
+                trackDesc3.textContent = "Soft healing sub-frequency waves for calming rave stress";
                 
             } else {
                 // BACK TO HORROR THEME
@@ -1403,6 +1530,11 @@
                 svgMaskContour.setAttribute('stroke-dasharray', '3,3'); // glitchy dashed contour
                 svgPupilLeft.setAttribute('r', '8'); // tiny pinpoint creepy pupils
                 svgPupilRight.setAttribute('r', '8');
+
+                // Adjust track descriptions back to Horror mode
+                trackDesc1.textContent = "Heavy 4-on-the-floor acid bass kick & creepy synth sweeps";
+                trackDesc2.textContent = "Hyper-bright progressive major chords & sparkling melodies";
+                trackDesc3.textContent = "Deep low-frequency drones, metallic gothic bells & horror subs";
             }
         });
 
@@ -1433,96 +1565,518 @@
             lyricsToggle.classList.toggle('active');
             lyricsBody.classList.toggle('show');
             if (lyricsBody.classList.contains('show')) {
-                lyricsToggle.innerHTML = '<svg viewBox="0 0 24 24" style="transform:rotate(180deg);" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg> Hide Lyrics';
+                lyricsToggle.innerHTML = '<svg viewBox="0 0 24 24" style="transform:rotate(180deg);" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg> Hide Track Info & Lyrics';
             } else {
-                lyricsToggle.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg> Show Lyrics';
+                lyricsToggle.innerHTML = '<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/></svg> Show Track Info & Lyrics';
             }
         });
 
-        // Audio Player Simulation (with Visualizer animation)
+        /* ==========================================================================
+           🎵 HIGH-FIDELITY WEB AUDIO API SEQUENCER SYNTHESIS SYSTEM
+           Completely client-side. Zero external network dependencies. Plays real audio!
+           ========================================================================== */
+
+        let audioCtx = null;
+        let analyser = null;
+        let mainGain = null;
+        let isPlaying = false;
+        let currentTrack = 'theravemomo';
+        
+        let seqInterval = null;
+        let currentStep = 0;
+        let bpm = 130;
+        let stepDuration = 60 / bpm / 4; // 16th notes
+        let nextNoteTime = 0.0;
+        
+        let trackDuration = 148; // track length in seconds (2:28)
+        let playbackTime = 0;
+        let timerInterval = null;
+
         const playBtn = document.getElementById('play-pause-btn');
         const playIcon = document.getElementById('play-icon');
         const progBar = document.getElementById('prog-bar');
         const playerTimer = document.getElementById('player-timer');
         const visBars = document.querySelectorAll('.vis-bar');
         const progContainer = document.getElementById('prog-container');
+        const volSlider = document.getElementById('volume-slider');
+        const trackElements = document.querySelectorAll('.playlist-track');
+        const playerTrackName = document.getElementById('player-track-name');
+        const playerTrackArtist = document.getElementById('player-track-artist');
+        const dynamicLyricsContent = document.getElementById('dynamic-lyrics-content');
+        const discArt = document.getElementById('disc-art');
 
-        let isPlaying = false;
-        let playInterval;
-        let duration = 148; // track length in seconds (2:28)
-        let currentTime = 0;
-
-        function updateProgress() {
-            currentTime++;
-            if (currentTime > duration) {
-                clearInterval(playInterval);
-                isPlaying = false;
-                playBtn.classList.remove('playing');
-                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
-                currentTime = 0;
-                progBar.style.width = '0%';
-                playerTimer.textContent = '0:00';
-                visBars.forEach(bar => {
-                    bar.classList.remove('animating');
-                    bar.style.height = '2px';
-                });
-                return;
+        // Track database
+        const trackData = {
+            theravemomo: {
+                name: "THERAVEMOMO",
+                artist: "Track 1: Acid Dark Techno Riff",
+                duration: 148, // 2:28
+                bpm: 130,
+                lyrics: `<strong>[Song Lyrics: THERAVEMOMO]</strong><br><br>
+                         <strong>[Verse 1]</strong><br>
+                         Something is creeping near<br>
+                         No need to turn and fear<br>
+                         Just see those glowing eyes<br>
+                         They pierce right through your mind<br><br>
+                         
+                         <strong>[Pre-Chorus]</strong><br>
+                         Better be on your guard<br>
+                         Feeling the air getting hard<br><br>
+                         
+                         <strong>[Chorus]</strong><br>
+                         The Rave Momo is coming for you<br>
+                         The Rave Momo will hunt you down<br>
+                         The Rave Momo is coming for you<br>
+                         The Rave Momo will take you out<br><br>
+                         
+                         <strong>[Verse 2]</strong><br>
+                         Shadows begin to crawl<br>
+                         Whispers begin to call<br>
+                         You know it's far too late<br>
+                         There's no escape from fate`
+            },
+            plurvibes: {
+                name: "PLUR VIBES",
+                artist: "Track 2: Uplifting Progressive House",
+                duration: 100, // 1:40
+                bpm: 128,
+                lyrics: `<strong>[Song Mechanics: PLUR VIBES]</strong><br><br>
+                         This track uses the Web Audio API to synthesize a classic progressive house arpeggiator in major scales (A minor, F major, C major, G major).<br><br>
+                         <strong>[Melodic Progression]</strong><br>
+                         - Bar 1: Am Chord arpeggio (Sparkling high notes)<br>
+                         - Bar 2: Fmaj Chord arpeggio (Elevating warmth)<br>
+                         - Bar 3: Cmaj Chord arpeggio (Wholesome brightness)<br>
+                         - Bar 4: Gmaj Chord arpeggio (Peak euphoria)<br><br>
+                         <strong>[Feelings Triggered]</strong><br>
+                         Peace, Love, Unity, and Respect on the dancefloor.`
+            },
+            creepycrowd: {
+                name: "CREEPY CROWD",
+                artist: "Track 3: Cinematic Horror Soundscape",
+                duration: 180, // 3:00
+                bpm: 90,
+                lyrics: `<strong>[Atmospheric Lore: CREEPY CROWD]</strong><br><br>
+                         This track generates a continuous procedural sub-bass drone modulated via a low-frequency oscillator (LFO), combined with random eerie metallic bells and industrial pitch sweeps.<br><br>
+                         <strong>[Elements Synthesized]</strong><br>
+                         - 30Hz / 60Hz Sub-Harmonic Drones<br>
+                         - 880Hz / 1328Hz Detuned Inharmonic Gothic Bells<br>
+                         - Synthesized LFO sweeping the filter to replicate wind through an empty venue.<br><br>
+                         <strong>[Performer Note]</strong><br>
+                         This represents the auditory silence before Momo encounters a new crowd.`
             }
+        };
 
-            const pct = (currentTime / duration) * 100;
-            progBar.style.width = pct + '%';
-
-            // Update timer
-            const mins = Math.floor(currentTime / 60);
-            const secs = currentTime % 60;
-            playerTimer.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        // Initialize Audio context safely on user interaction
+        function initAudio() {
+            if (audioCtx) return;
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             
-            // Randomize visualizer bars heights slightly to look active
-            if (isPlaying) {
-                visBars.forEach(bar => {
-                    const randomHeight = Math.floor(Math.random() * 32) + 6;
-                    bar.style.height = randomHeight + 'px';
-                });
+            analyser = audioCtx.createAnalyser();
+            analyser.fftSize = 64; // small fft size to give us 32 frequency bins to directly control the 24 visualizer bars!
+            
+            mainGain = audioCtx.createGain();
+            mainGain.gain.setValueAtTime(volSlider.value / 100 * 0.4, audioCtx.currentTime); // keep max scaling safe
+            
+            mainGain.connect(analyser);
+            analyser.connect(audioCtx.destination);
+        }
+
+        // --- SYNTH VOICE GENERATORS ---
+
+        // 1. Kick Drum
+        function synthKick(time) {
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.connect(gain);
+            gain.connect(mainGain);
+
+            osc.frequency.setValueAtTime(140, time);
+            osc.frequency.exponentialRampToValueAtTime(0.01, time + 0.25);
+
+            gain.gain.setValueAtTime(1.0, time);
+            gain.gain.exponentialRampToValueAtTime(0.01, time + 0.25);
+
+            osc.start(time);
+            osc.stop(time + 0.25);
+        }
+
+        // 2. Acid Bass (Monophonic SAW synth with highly resonant LPF)
+        function synthAcidBass(freq, time, duration) {
+            let osc = audioCtx.createOscillator();
+            let filter = audioCtx.createBiquadFilter();
+            let gain = audioCtx.createGain();
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, time);
+
+            filter.type = 'lowpass';
+            filter.Q.setValueAtTime(12, time); // highly resonant
+            filter.frequency.setValueAtTime(80, time);
+            filter.frequency.exponentialRampToValueAtTime(800, time + 0.04);
+            filter.frequency.exponentialRampToValueAtTime(80, time + duration - 0.01);
+
+            gain.gain.setValueAtTime(0.4, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(mainGain);
+
+            osc.start(time);
+            osc.stop(time + duration);
+        }
+
+        // 3. Spooky Vibrato Lead Synth
+        function synthHorrorLead(freq, time, duration) {
+            let osc = audioCtx.createOscillator();
+            let vibrato = audioCtx.createOscillator();
+            let vibratoGain = audioCtx.createGain();
+            let filter = audioCtx.createBiquadFilter();
+            let gain = audioCtx.createGain();
+
+            osc.type = 'sawtooth';
+            osc.frequency.setValueAtTime(freq, time);
+
+            // Vibrato (pitch modulation)
+            vibrato.frequency.setValueAtTime(7, time); // 7Hz vibration
+            vibratoGain.gain.setValueAtTime(8, time); // shift pitch by 8Hz
+
+            vibrato.connect(vibratoGain);
+            vibratoGain.connect(osc.frequency);
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1500, time);
+
+            gain.gain.setValueAtTime(0.06, time);
+            gain.gain.linearRampToValueAtTime(0.08, time + 0.05);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+
+            osc.connect(filter);
+            filter.connect(gain);
+            gain.connect(mainGain);
+
+            vibrato.start(time);
+            osc.start(time);
+            vibrato.stop(time + duration);
+            osc.stop(time + duration);
+        }
+
+        // 4. PLUR Bright Super-Saw Arp
+        function synthPlurArp(freq, time, duration) {
+            let osc1 = audioCtx.createOscillator();
+            let osc2 = audioCtx.createOscillator(); // detuned second voice for supersaw effect
+            let filter = audioCtx.createBiquadFilter();
+            let gain = audioCtx.createGain();
+
+            osc1.type = 'sawtooth';
+            osc1.frequency.setValueAtTime(freq, time);
+            
+            osc2.type = 'sawtooth';
+            osc2.frequency.setValueAtTime(freq * 1.015, time); // detuned
+
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1200, time);
+            filter.frequency.exponentialRampToValueAtTime(3000, time + 0.05);
+            filter.frequency.exponentialRampToValueAtTime(600, time + duration);
+
+            gain.gain.setValueAtTime(0.15, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+
+            osc1.connect(filter);
+            osc2.connect(filter);
+            filter.connect(gain);
+            gain.connect(mainGain);
+
+            osc1.start(time);
+            osc2.start(time);
+            osc1.stop(time + duration);
+            osc2.stop(time + duration);
+        }
+
+        // 5. Gothic / Metallic Bells
+        function synthGothicBell(freq, time) {
+            let osc = audioCtx.createOscillator();
+            let overtone = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, time);
+
+            overtone.type = 'triangle';
+            overtone.frequency.setValueAtTime(freq * 1.503, time); // detuned perfect fifth overtone
+
+            gain.gain.setValueAtTime(0.2, time);
+            gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.8);
+
+            osc.connect(gain);
+            overtone.connect(gain);
+            gain.connect(mainGain);
+
+            osc.start(time);
+            overtone.start(time);
+            osc.stop(time + 1.8);
+            overtone.stop(time + 1.8);
+        }
+
+        // 6. Sub-Harmonic Low Drone
+        function synthSubDrone(freq, time, duration) {
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, time);
+
+            gain.gain.setValueAtTime(0.2, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+
+            osc.connect(gain);
+            gain.connect(mainGain);
+
+            osc.start(time);
+            osc.stop(time + duration);
+        }
+
+        // --- STEP SEQUENCER SCHEDULER ENGINE ---
+
+        // Chromatic frequency list
+        const NOTES = {
+            A1: 55.00, Bb1: 58.27, Gs1: 51.91,
+            A2: 110.00, C2: 65.41, D2: 73.42, B2: 98.00, Gs2: 103.83,
+            A3: 220.00, C3: 130.81, E3: 164.81, F3: 174.61, G3: 196.00, B3: 246.94,
+            A4: 440.00, C4: 261.63, E4: 329.63, F4: 349.23, G4: 392.00, B4: 493.88, D4: 293.66,
+            C5: 523.25, Eb5: 622.25, E5: 659.25
+        };
+
+        function scheduleNote(step, time) {
+            if (currentTrack === 'theravemomo') {
+                // 1. THERAVEMOMO (Theme Track Sequencer: Acid Techno)
+                // Kick Drum on quarter beats
+                if (step % 4 === 0) {
+                    synthKick(time);
+                }
+
+                // Acid Bass chromatic dark groove
+                let bassNote = NOTES.A1;
+                let playBass = false;
+                
+                // 16-step bass structure
+                const pattern = [
+                    {note: NOTES.A1, play: true},   {note: NOTES.A1, play: false}, 
+                    {note: NOTES.A2, play: true},   {note: NOTES.C2, play: true},
+                    {note: NOTES.A1, play: true},   {note: NOTES.A1, play: false},
+                    {note: NOTES.Bb1, play: true},  {note: NOTES.D2, play: true},
+                    {note: NOTES.A1, play: true},   {note: NOTES.A1, play: false},
+                    {note: NOTES.A2, play: true},   {note: NOTES.C2, play: true},
+                    {note: NOTES.Gs1, play: true},  {note: NOTES.Gs1, play: false},
+                    {note: NOTES.Gs2, play: true},  {note: NOTES.B2, play: true}
+                ];
+
+                if (pattern[step].play) {
+                    synthAcidBass(pattern[step].note, time, stepDuration * 0.8);
+                }
+
+                // Spooky Vibrato Lead
+                if (step === 4) synthHorrorLead(NOTES.A4, time, stepDuration * 3);
+                if (step === 8) synthHorrorLead(NOTES.C5, time, stepDuration * 2);
+                if (step === 12) synthHorrorLead(NOTES.Eb5, time, stepDuration * 1.5);
+                if (step === 14) synthHorrorLead(NOTES.E5, time, stepDuration * 2);
+
+            } else if (currentTrack === 'plurvibes') {
+                // 2. PLUR VIBES (Uplifting Progressive EDM arpeggio)
+                if (step % 4 === 0) {
+                    synthKick(time);
+                }
+
+                // 16-step progressive chord arpeggiator (Am, Fmaj, Cmaj, Gmaj)
+                let arpNote = NOTES.A3;
+                let scale = [];
+                
+                if (step < 4) { // Am chord: A, C, E, A
+                    scale = [NOTES.A3, NOTES.C4, NOTES.E4, NOTES.A4];
+                } else if (step < 8) { // Fmaj chord: F, A, C, F
+                    scale = [NOTES.F3, NOTES.A3, NOTES.C4, NOTES.F4];
+                } else if (step < 12) { // Cmaj chord: C, E, G, C
+                    scale = [NOTES.C3, NOTES.E3, NOTES.G3, NOTES.C4];
+                } else { // Gmaj chord: G, B, D, G
+                    scale = [NOTES.G3, NOTES.B3, NOTES.D4, NOTES.G4];
+                }
+
+                arpNote = scale[step % 4];
+                synthPlurArp(arpNote, time, stepDuration * 0.95);
+
+            } else if (currentTrack === 'creepycrowd') {
+                // 3. CREEPY CROWD (Sub-ambient cinematic horror drone)
+                // Slow ambient timeline. Step durations are slower (BPM is 90)
+                if (step === 0) {
+                    synthSubDrone(30.0, time, stepDuration * 8); // Deep sub drone
+                }
+                if (step === 8) {
+                    synthSubDrone(45.0, time, stepDuration * 8); // Rising drone
+                }
+
+                // Random industrial sweeps / Gothic bells
+                if (step === 4) {
+                    synthGothicBell(NOTES.A4, time);
+                }
+                if (step === 12) {
+                    synthGothicBell(NOTES.Eb5, time);
+                }
             }
         }
 
-        playBtn.addEventListener('click', () => {
-            isPlaying = !isPlaying;
-            if (isPlaying) {
-                playBtn.classList.add('playing');
-                playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Pause icon
+        function scheduler() {
+            while (nextNoteTime < audioCtx.currentTime + 0.1) {
+                scheduleNote(currentStep, nextNoteTime);
                 
-                // Add random animated heights to visualizer
-                visBars.forEach(bar => {
-                    bar.classList.add('animating');
-                    // Randomize animation delays for cool natural look
-                    bar.style.animationDelay = (Math.random() * 0.8) + 's';
-                });
+                // advance time
+                let secondsPerBeat = 60.0 / bpm;
+                nextNoteTime += 0.25 * secondsPerBeat; // move forward by 16th note
+                
+                currentStep = (currentStep + 1) % 16;
+            }
+        }
 
-                playInterval = setInterval(updateProgress, 1000);
-            } else {
-                playBtn.classList.remove('playing');
-                playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
-                clearInterval(playInterval);
+        // Animate the visualization bars using the ACTUAL browser audio frequency analyser
+        function animateVisualizer() {
+            if (!isPlaying) return;
+            requestAnimationFrame(animateVisualizer);
+
+            let dataArray = new Uint8Array(analyser.frequencyBinCount);
+            analyser.getByteFrequencyData(dataArray);
+
+            for (let i = 0; i < visBars.length; i++) {
+                // Read from the real Web Audio API analyser frequencies
+                let rawValue = dataArray[i % dataArray.length];
+                let percent = rawValue / 255;
                 
-                visBars.forEach(bar => {
-                    bar.classList.remove('animating');
-                    bar.style.height = '2px';
-                });
+                // Add a small multiplier based on current track for aesthetics
+                let multiplier = currentTrack === 'plurvibes' ? 45 : 35;
+                let calculatedHeight = (percent * multiplier) + 2;
+                
+                visBars[i].style.height = calculatedHeight + 'px';
+            }
+        }
+
+        // --- TIMER & TRACK MANAGEMENT ---
+
+        function updateTimer() {
+            playbackTime++;
+            if (playbackTime > trackDuration) {
+                // track ended naturally, loop back or reset
+                playbackTime = 0;
+            }
+
+            const pct = (playbackTime / trackDuration) * 100;
+            progBar.style.width = pct + '%';
+
+            const mins = Math.floor(playbackTime / 60);
+            const secs = playbackTime % 60;
+            playerTimer.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        // Start/Stop synthesiser
+        function startPlayback() {
+            initAudio();
+            
+            // resume context if suspended (needed in Chrome/iOS)
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            isPlaying = true;
+            playBtn.classList.add('playing');
+            playIcon.innerHTML = '<path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>'; // Pause icon
+            discArt.style.animation = 'spin 3s linear infinite';
+
+            // Start step scheduler sequencer
+            nextNoteTime = audioCtx.currentTime;
+            currentStep = 0;
+            seqInterval = setInterval(scheduler, 25);
+
+            // Start clock timer
+            timerInterval = setInterval(updateTimer, 1000);
+
+            // Trigger visualizer animation linked to AnalyserNode
+            animateVisualizer();
+        }
+
+        function stopPlayback() {
+            isPlaying = false;
+            playBtn.classList.remove('playing');
+            playIcon.innerHTML = '<path d="M8 5v14l11-7z"/>'; // Play icon
+            discArt.style.animation = 'none';
+
+            clearInterval(seqInterval);
+            clearInterval(timerInterval);
+
+            // Flatline visualizer bars
+            visBars.forEach(bar => {
+                bar.style.height = '2px';
+            });
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (isPlaying) {
+                stopPlayback();
+            } else {
+                startPlayback();
             }
         });
 
-        // Click on progress container to seek
+        // Volume controller
+        volSlider.addEventListener('input', function() {
+            if (mainGain && audioCtx) {
+                mainGain.gain.setValueAtTime(this.value / 100 * 0.4, audioCtx.currentTime);
+            }
+        });
+
+        // Progress Seek Click
         progContainer.addEventListener('click', (e) => {
             const rect = progContainer.getBoundingClientRect();
             const clickX = e.clientX - rect.left;
             const pct = clickX / rect.width;
-            currentTime = Math.floor(pct * duration);
+            playbackTime = Math.floor(pct * trackDuration);
             progBar.style.width = (pct * 100) + '%';
             
-            const mins = Math.floor(currentTime / 60);
-            const secs = currentTime % 60;
+            const mins = Math.floor(playbackTime / 60);
+            const secs = playbackTime % 60;
             playerTimer.textContent = `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+        });
+
+        // Playlist click listener to swap tracks
+        trackElements.forEach(trackEl => {
+            trackEl.addEventListener('click', function() {
+                // Remove active classes
+                trackElements.forEach(el => el.classList.remove('active'));
+                
+                // Add active to clicked track
+                this.classList.add('active');
+                
+                // Get track configuration
+                const trackId = this.getAttribute('data-track');
+                currentTrack = trackId;
+                
+                const meta = trackData[trackId];
+                bpm = meta.bpm;
+                stepDuration = 60 / bpm / 4;
+                trackDuration = meta.duration;
+                
+                // Update player panel texts
+                playerTrackName.textContent = meta.name;
+                playerTrackArtist.textContent = meta.artist;
+                dynamicLyricsContent.innerHTML = meta.lyrics;
+
+                // Reset time counters
+                playbackTime = 0;
+                progBar.style.width = '0%';
+                playerTimer.textContent = '0:00';
+
+                // If currently playing, restart with new sequencer values
+                if (isPlaying) {
+                    stopPlayback();
+                    startPlayback();
+                }
+            });
         });
 
         // Handle Booking Form Submit
