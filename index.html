@@ -13,7 +13,7 @@
             --accent-color: #39ff14; /* Neon Green */
             --accent-glow: rgba(57, 255, 20, 0.45);
             --accent-secondary: #00ffff; /* Neon Cyan */
-            --accent-secondary-glow: rgba(0, 255, 255, 0.35);
+            --accent-secondary-glow: rgba(0, 255, 255, 0.3);
             --card-bg: rgba(10, 12, 16, 0.9);
             --border-glow: 1px solid rgba(57, 255, 20, 0.25);
             --font-family: 'Courier New', Courier, monospace;
@@ -1122,53 +1122,74 @@
             font-size: 0.98rem;
         }
 
-        /* Booking Section with Two-Column HUD Layout */
+        /* Booking Section with Stacked Horizontal Grid (No Laptop Squish / No Dead Space!) */
         .booking-section {
             padding: 80px 0 120px 0;
         }
 
         .booking-card {
-            max-width: 1000px;
+            max-width: 1050px; /* expanded width for complete horizontal readability */
             margin: 0 auto;
             padding: 50px 40px;
             box-shadow: 0 15px 45px rgba(0,0,0,0.5);
             text-align: center;
         }
 
-        .booking-card-grid {
+        /* Spacious Horizontal Rider Grid (Promoter Update) */
+        .rider-grid {
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 50px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             text-align: left;
-            margin-top: 30px;
+            margin: 40px 0;
         }
 
-        @media (max-width: 850px) {
-            .booking-card-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
+        @media (max-width: 950px) {
+            .rider-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
-        /* Logistics and Touring Rider list styling */
+        @media (max-width: 550px) {
+            .rider-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Logistics and Touring Rider panel styling */
         .rider-panel {
             background: rgba(0, 0, 0, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 2px;
-            padding: 25px;
+            padding: 22px;
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 12px;
+            min-height: 100%;
+        }
+
+        .rider-panel-title-wrapper {
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            padding-bottom: 15px;
+            margin-bottom: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .rider-panel-title {
-            font-size: 1rem;
+            font-size: 1.2rem;
             text-transform: uppercase;
             letter-spacing: 1.5px;
             font-weight: bold;
             color: var(--accent-color);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 10px;
+        }
+
+        .rider-panel-meta {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
         }
 
         .rider-item {
@@ -1187,7 +1208,7 @@
 
         .rider-item-body {
             font-size: 0.85rem;
-            color: #aaa;
+            color: #999;
             line-height: 1.4;
             font-family: inherit;
         }
@@ -1223,15 +1244,37 @@
             flex-wrap: wrap;
         }
 
+        /* Spacious Full-Width Grid Form (CRO update) */
         .booking-form {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
             text-align: left;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            padding-top: 40px;
         }
 
         .booking-form .full-width {
-            grid-column: span 2;
+            grid-column: span 3;
+        }
+
+        @media (max-width: 900px) {
+            .booking-form {
+                grid-template-columns: 1fr 1fr;
+            }
+            .booking-form .full-width {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+            .booking-form .full-width {
+                grid-column: span 1;
+            }
         }
 
         .form-group {
@@ -1324,7 +1367,7 @@
                 text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
             }
             15% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 255, 0, 0.75);
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
             }
             49% {
                 text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
@@ -1643,7 +1686,7 @@
 
                         <!-- Slide 3 -->
                         <div class="carousel-slide">
-                            <img src="slide3.png" alt="The Soundboard Track Slide 3">
+                            <img src="slide3.png" alt="The Sounds of the Shadows Slide 3">
                             <div class="slide-info-overlay">
                                 <div class="slide-num">Chapter 3</div>
                                 <div class="slide-title">The Sounds of the Shadows</div>
@@ -1809,91 +1852,100 @@
                     </a>
                 </div>
 
-                <!-- Side-by-side grid of Touring Rider vs Form -->
-                <div class="booking-card-grid">
+                <!-- Spacious Stacked Layout: Rider Grid above Form (No dead space, perfect readability!) -->
+                <div class="rider-panel-title-wrapper" style="margin-top: 50px;">
+                    <span class="rider-panel-title" id="rider-panel-title-text">Touring Rider & Logistics</span>
+                    <span class="rider-panel-meta">Standard B2B Terms</span>
+                </div>
+
+                <div class="rider-grid">
                     
-                    <!-- Left: Touring Rider details for easy logistics -->
-                    <div class="rider-panel" id="logistics-rider-panel">
-                        <div class="rider-panel-title">Touring Rider & Logistics</div>
-                        
+                    <div class="rider-panel">
                         <div class="rider-item">
-                            <div class="rider-item-head">⚡ Plug-and-Play Integration</div>
+                            <div class="rider-item-head">⚡ Plug-and-Play</div>
                             <div class="rider-item-body">Zero production overhead. Performer provides all self-powered LED hardware, costume systems, and customized trinkets/Kandi supplies.</div>
                         </div>
+                    </div>
 
+                    <div class="rider-panel">
                         <div class="rider-item">
-                            <div class="rider-item-head">🎫 Credentials & Access</div>
+                            <div class="rider-item-head">🎫 Credentials</div>
                             <div class="rider-item-body">Requires two (2) All-Area Passes / Working Wristbands (1 Performer, 1 Sober Tour Escort/Handler) for crowd management and navigation.</div>
                         </div>
+                    </div>
 
+                    <div class="rider-panel">
                         <div class="rider-item">
-                            <div class="rider-item-head">🏨 Travel & Accommodations</div>
+                            <div class="rider-item-head">🏨 Travel & Stay</div>
                             <div class="rider-item-body">Standard local travel stipend or single artist hotel room (3-star minimum). No extravagant green room hospitality requirements.</div>
                         </div>
+                    </div>
 
-                        <div class="rider-item" style="border-top: 1px dashed rgba(255,255,255,0.05); padding-top: 15px;">
-                            <div class="rider-item-head" style="color: var(--accent-color);">🛡️ Promoter Safety Shield</div>
+                    <div class="rider-panel" style="border: 1px dashed var(--accent-color);">
+                        <div class="rider-item">
+                            <div class="rider-item-head" style="color: var(--accent-color);">🛡️ Promoter Shield</div>
                             <div class="rider-item-body">Escort handler is fully sober, first-aid alert, and acts as supplementary stage-front crowd eyes to signal medical teams if ravers look distressed.</div>
                         </div>
                     </div>
 
-                    <!-- Right: Booking form -->
-                    <form class="booking-form" id="booking-form" onsubmit="handleFormSubmit(event)">
-                        <div class="form-group">
-                            <label for="name">Your Name / Agency</label>
-                            <input type="text" id="name" class="form-control" required placeholder="Enter name">
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" class="form-control" required placeholder="Enter email">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="inquiry-type">Inquiry Type</label>
-                            <select id="inquiry-type" class="form-control" required>
-                                <option value="" disabled selected>Select activation style...</option>
-                                <option value="roaming">Paid Festival Roaming Activation</option>
-                                <option value="stage">Mainstage Performance Cameo</option>
-                                <option value="sponsor">Corporate Brand / Apparel Sponsorship</option>
-                                <option value="club">Club / Venue Appearance Hosting</option>
-                                <option value="press">Media Interview / Collaboration</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="budget">Estimated Talent Budget</label>
-                            <select id="budget" class="form-control" required>
-                                <option value="" disabled selected>Select budget range...</option>
-                                <option value="travel">Under $1,500 (VIP Access + Travel Only)</option>
-                                <option value="standard">$1,500 - $3,000 (Standard Roaming)</option>
-                                <option value="cameo">$3,000 - $5,000 (Stage Cameo + Roaming)</option>
-                                <option value="tier1">$5,000 - $10,000 (Premium Activation Package)</option>
-                                <option value="sponsor_tier">$10,000+ (Full Weekend Brand Integration)</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="event">Event Name & Date</label>
-                            <input type="text" id="event" class="form-control" required placeholder="Event name, location, and date">
-                        </div>
-
-                        <div class="form-group">
-                            <label for="capacity">Expected Attendance / Capacity</label>
-                            <input type="number" id="capacity" class="form-control" required placeholder="e.g. 5000">
-                        </div>
-                        
-                        <div class="form-group full-width">
-                            <label for="message">Detailed Activation Proposal</label>
-                            <textarea id="message" class="form-control" required placeholder="Describe the activation schedule, stage parameters, or brand goals..."></textarea>
-                        </div>
-                        
-                        <div class="submit-btn-wrapper full-width">
-                            <button type="submit" class="btn" id="submit-btn">Send Proposal</button>
-                        </div>
-                    </form>
-
                 </div>
+
+                <!-- Spacious full-width booking form below rider -->
+                <form class="booking-form" id="booking-form" onsubmit="handleFormSubmit(event)">
+                    <div class="form-group">
+                        <label for="name">Your Name / Agency</label>
+                        <input type="text" id="name" class="form-control" required placeholder="Enter name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" required placeholder="Enter email">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="capacity">Expected Attendance / Capacity</label>
+                        <input type="number" id="capacity" class="form-control" required placeholder="e.g. 5000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="inquiry-type">Inquiry Type</label>
+                        <select id="inquiry-type" class="form-control" required>
+                            <option value="" disabled selected>Select activation style...</option>
+                            <option value="roaming">Paid Festival Roaming Activation</option>
+                            <option value="stage">Mainstage Performance Cameo</option>
+                            <option value="sponsor">Corporate Brand / Apparel Sponsorship</option>
+                            <option value="club">Club / Venue Appearance Hosting</option>
+                            <option value="press">Media Interview / Collaboration</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="budget">Estimated Talent Budget</label>
+                        <select id="budget" class="form-control" required>
+                            <option value="" disabled selected>Select budget range...</option>
+                            <option value="travel">Under $1,500 (VIP Access + Travel Only)</option>
+                            <option value="standard">$1,500 - $3,000 (Standard Roaming)</option>
+                            <option value="cameo">$3,000 - $5,000 (Stage Cameo + Roaming)</option>
+                            <option value="tier1">$5,000 - $10,000 (Premium Activation Package)</option>
+                            <option value="sponsor_tier">$10,000+ (Full Weekend Brand Integration)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="event">Event Name & Date</label>
+                        <input type="text" id="event" class="form-control" required placeholder="Event name, location, date">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label for="message">Detailed Activation Proposal</label>
+                        <textarea id="message" class="form-control" required placeholder="Describe the activation schedule, stage parameters, or brand goals..."></textarea>
+                    </div>
+                    
+                    <div class="submit-btn-wrapper full-width">
+                        <button type="submit" class="btn" id="submit-btn">Send Proposal</button>
+                    </div>
+                </form>
+
             </div>
         </div>
     </section>
@@ -1947,7 +1999,7 @@
         const trackDesc3 = document.getElementById('track-desc-3');
 
         // Touring rider element
-        const logisticsRiderPanel = document.getElementById('logistics-rider-panel');
+        const riderPanelTitleText = document.getElementById('rider-panel-title-text');
         const bookingStatusBadge = document.getElementById('booking-status-badge');
 
         themeToggle.addEventListener('change', function() {
@@ -1974,7 +2026,7 @@
                 submitBtn.textContent = 'Send Good Vibes';
 
                 // Swap Rider title and badge for PLUR mode
-                logisticsRiderPanel.querySelector('.rider-panel-title').textContent = "Meet-up Guide & Comfort";
+                riderPanelTitleText.textContent = "Meet-up Guide & Comfort";
                 bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Meetup Availability: Fall / Winter 2026";
                 
                 // Morph SVG into happy PLUR style
@@ -2005,7 +2057,7 @@
                 submitBtn.textContent = 'Send Proposal';
 
                 // Swap Rider title and badge back to Horror mode
-                logisticsRiderPanel.querySelector('.rider-panel-title').textContent = "Touring Rider & Logistics";
+                riderPanelTitleText.textContent = "Touring Rider & Logistics";
                 bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Now Booking: Fall / Winter 2026";
 
                 // Morph SVG back to creepy horror style
