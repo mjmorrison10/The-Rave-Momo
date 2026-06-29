@@ -13,7 +13,7 @@
             --accent-color: #39ff14; /* Neon Green */
             --accent-glow: rgba(57, 255, 20, 0.45);
             --accent-secondary: #00ffff; /* Neon Cyan */
-            --accent-secondary-glow: rgba(0, 255, 255, 0.3);
+            --accent-secondary-glow: rgba(0, 255, 255, 0.35);
             --card-bg: rgba(10, 12, 16, 0.9);
             --border-glow: 1px solid rgba(57, 255, 20, 0.25);
             --font-family: 'Courier New', Courier, monospace;
@@ -1008,6 +1008,47 @@
             transition: fill 0.3s ease;
         }
 
+        .logo-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Scarcity Status Badge (Talent Agent Update) */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(57, 255, 20, 0.08);
+            border: 1px solid rgba(57, 255, 20, 0.3);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: bold;
+            color: var(--accent-color);
+            letter-spacing: 1px;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+            transition: all 0.5s ease;
+        }
+
+        .theme-plur .status-badge {
+            background: rgba(255, 0, 170, 0.08);
+            border-color: rgba(255, 0, 170, 0.35);
+            color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(255, 0, 170, 0.1);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            animation: pulse-ring 1.5s infinite alternate;
+        }
+
         .social-title {
             font-size: 1.2rem;
             font-weight: bold;
@@ -1081,13 +1122,13 @@
             font-size: 0.98rem;
         }
 
-        /* Booking Section with Two-Column HUD Layout (Promoter update) */
+        /* Booking Section with Two-Column HUD Layout */
         .booking-section {
             padding: 80px 0 120px 0;
         }
 
         .booking-card {
-            max-width: 1000px; /* expanded width for the side-by-side grid */
+            max-width: 1000px;
             margin: 0 auto;
             padding: 50px 40px;
             box-shadow: 0 15px 45px rgba(0,0,0,0.5);
@@ -1283,7 +1324,7 @@
                 text-shadow: 0.05em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75), 0.025em 0.05em 0 rgba(0, 0, 255, 0.75);
             }
             15% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 255, 0, 0.75);
             }
             49% {
                 text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
@@ -1419,7 +1460,7 @@
             <div class="lore-content">
                 <h2 id="lore-title">The Viral Crowd Solution</h2>
                 <p id="lore-p1">
-                    At major festivals like EDC and Beyond Wonderland, millions of ravers seek out one legendary presence. <strong>The Rave Momo</strong> is a professional, high-concept atmosphere actor engineered to drive massive social impressions, spark viral UGC, and elevate stage-front energy.
+                    At major music festivals like EDC Las Vegas, Beyond Wonderland, and Countdown, a tall, eerie figure silently weaves through the crowds. Moving with disjointed, slow-motion gestures and staring wide-eyed, they present an striking sight: <strong>The Rave Momo</strong>.
                 </p>
                 <div class="lore-tagline" id="lore-quote">
                     "NICE TO CREEP YOU!" 👻🫶🏼
@@ -1748,7 +1789,14 @@
             <h2 class="section-title" id="booking-title">Secure An Appearance</h2>
             
             <div class="booking-card cyber-card">
-                <p class="booking-tagline" id="booking-tag">
+                
+                <!-- Scarcity / Availability Agent Badge (Talent Agent Update) -->
+                <div class="status-badge" id="booking-status-badge">
+                    <span class="status-dot"></span>
+                    <span>Now Booking: Fall / Winter 2026</span>
+                </div>
+
+                <p class="booking-tagline" id="booking-tag" style="margin-bottom: 25px;">
                     Secure an official booking, schedule a strategic activation, or initiate a brand partnership.
                 </p>
                 
@@ -1761,7 +1809,7 @@
                     </a>
                 </div>
 
-                <!-- Side-by-side grid of Touring Rider vs Form (Promoter update) -->
+                <!-- Side-by-side grid of Touring Rider vs Form -->
                 <div class="booking-card-grid">
                     
                     <!-- Left: Touring Rider details for easy logistics -->
@@ -1900,6 +1948,7 @@
 
         // Touring rider element
         const logisticsRiderPanel = document.getElementById('logistics-rider-panel');
+        const bookingStatusBadge = document.getElementById('booking-status-badge');
 
         themeToggle.addEventListener('change', function() {
             if (this.checked) {
@@ -1924,18 +1973,15 @@
                 successToast.textContent = 'PLUR vibes transmitted! 💖';
                 submitBtn.textContent = 'Send Good Vibes';
 
+                // Swap Rider title and badge for PLUR mode
+                logisticsRiderPanel.querySelector('.rider-panel-title').textContent = "Meet-up Guide & Comfort";
+                bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Meetup Availability: Fall / Winter 2026";
+                
                 // Morph SVG into happy PLUR style
                 svgMouth.setAttribute('d', 'M 60 140 C 80 170, 120 170, 140 140');
                 svgMaskContour.setAttribute('stroke-dasharray', '0');
                 svgPupilLeft.setAttribute('r', '12');
                 svgPupilRight.setAttribute('r', '12');
-
-                trackDesc1.textContent = "A positive, heavy bass progression styled to spread light in the shadows";
-                trackDesc2.textContent = "Dreamy neon progressive synth layers and cute sparkles";
-                trackDesc3.textContent = "Soft healing sub-frequency waves for calming rave stress";
-
-                // Swap Rider title for PLUR mode
-                logisticsRiderPanel.querySelector('.rider-panel-title').textContent = "Meet-up Guide & Comfort";
             } else {
                 bodyElement.classList.remove('theme-plur');
                 logoIcon.textContent = '👻';
@@ -1958,18 +2004,15 @@
                 successToast.textContent = 'Message Encrypted & Transmitted 💀';
                 submitBtn.textContent = 'Send Proposal';
 
+                // Swap Rider title and badge back to Horror mode
+                logisticsRiderPanel.querySelector('.rider-panel-title').textContent = "Touring Rider & Logistics";
+                bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Now Booking: Fall / Winter 2026";
+
                 // Morph SVG back to creepy horror style
                 svgMouth.setAttribute('d', 'M 50 145 C 75 165, 125 165, 150 145');
                 svgMaskContour.setAttribute('stroke-dasharray', '3,3');
                 svgPupilLeft.setAttribute('r', '8');
                 svgPupilRight.setAttribute('r', '8');
-
-                trackDesc1.textContent = "Heavy driving bass progression with intense energy";
-                trackDesc2.textContent = "Hyper-bright progressive major chords & sparkling melodies";
-                trackDesc3.textContent = "Deep low-frequency drones, metallic gothic bells & horror subs";
-
-                // Swap Rider title back to Horror mode
-                logisticsRiderPanel.querySelector('.rider-panel-title').textContent = "Touring Rider & Logistics";
             }
         });
 
@@ -2243,6 +2286,38 @@
             osc2.start(time);
             osc1.stop(time + duration);
             osc2.stop(time + duration);
+        }
+
+        function synthGothicBell(freq, time) {
+            let osc = audioCtx.createOscillator();
+            let overtone = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, time);
+            overtone.type = 'triangle';
+            overtone.frequency.setValueAtTime(freq * 1.503, time);
+            gain.gain.setValueAtTime(0.2, time);
+            gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.8);
+            osc.connect(gain);
+            overtone.connect(gain);
+            gain.connect(mainGain);
+            osc.start(time);
+            overtone.start(time);
+            osc.stop(time + 1.8);
+            overtone.stop(time + 1.8);
+        }
+
+        function synthSubDrone(freq, time, duration) {
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, time);
+            gain.gain.setValueAtTime(0.2, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
+            osc.connect(gain);
+            gain.connect(mainGain);
+            osc.start(time);
+            osc.stop(time + duration);
         }
 
         // --- SEQUENCER SCHEDULER ---
