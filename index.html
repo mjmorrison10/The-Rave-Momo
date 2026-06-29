@@ -8,7 +8,7 @@
         /* Base Styling & Variables */
         :root {
             /* Horror Mode (Default) Variables */
-            --bg-color: #030406;
+            --bg-color: #050608;
             --text-color: #f0f0f0;
             --accent-color: #39ff14; /* Neon Green */
             --accent-glow: rgba(57, 255, 20, 0.45);
@@ -185,7 +185,7 @@
             position: relative;
         }
 
-        /* Eerie Glowing Eyes with Pulsing Aura (Brand Guardian update) */
+        /* Eerie Glowing Eyes */
         .eyes-container {
             width: 280px;
             height: 120px;
@@ -196,18 +196,6 @@
             align-items: center;
         }
 
-        .eyes-container::before {
-            content: '';
-            position: absolute;
-            width: 200px;
-            height: 80px;
-            border-radius: 50%;
-            background: radial-gradient(var(--accent-glow) 10%, transparent 65%);
-            filter: blur(10px);
-            z-index: 1;
-            animation: pulse-ring 4s infinite alternate;
-        }
-
         .momo-eye {
             width: 80px;
             height: 60px;
@@ -216,12 +204,13 @@
             border: 4px solid var(--text-color);
             position: relative;
             margin: 0 20px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.6);
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
             overflow: hidden;
             transition: all 0.5s ease;
             z-index: 2;
         }
 
+        /* Interactive pupil coordinates (Whimsy update) */
         .momo-eye::after {
             content: '';
             position: absolute;
@@ -231,9 +220,9 @@
             border-radius: 50%;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(calc(-50% + var(--pupil-x, 0px)), calc(-50% + var(--pupil-y, 0px)));
             box-shadow: 0 0 15px var(--momo-eyes-color);
-            transition: all 0.5s ease;
+            transition: transform 0.12s cubic-bezier(0.25, 0.8, 0.25, 1), background-color 0.5s ease, box-shadow 0.5s ease;
         }
 
         .theme-plur .momo-eye {
@@ -247,6 +236,18 @@
         .theme-plur .momo-eye.right {
             border-radius: 90% 10% 50% 50%;
             transform: rotate(10deg);
+        }
+
+        .eyes-container::before {
+            content: '';
+            position: absolute;
+            width: 200px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(var(--accent-glow) 10%, transparent 65%);
+            filter: blur(10px);
+            z-index: 1;
+            animation: pulse-ring 4s infinite alternate;
         }
 
         .hero-title-wrapper {
@@ -302,7 +303,7 @@
             justify-content: center;
         }
 
-        /* Tactical HUD Cyber Buttons (Brand Guardian update) */
+        /* Tactical HUD Cyber Buttons */
         .btn {
             padding: 14px 34px;
             font-size: 0.9rem;
@@ -383,7 +384,7 @@
             }
         }
 
-        /* Tactical Cyberpunk Cards with Neon Corners (Brand Guardian update) */
+        /* Tactical Cyberpunk Cards with Neon Corners */
         .cyber-card {
             background: var(--card-bg);
             border: var(--border-glow);
@@ -393,7 +394,6 @@
             overflow: hidden;
         }
 
-        /* Glowing Tech Corners */
         .cyber-card::before, .cyber-card::after {
             content: '';
             position: absolute;
@@ -406,7 +406,6 @@
             transition: border-color 0.5s ease;
         }
 
-        /* Top-Left and Bottom-Right Corners */
         .cyber-card::before {
             top: -2px; left: -2px;
             border-width: 2px 0 0 2px;
@@ -649,7 +648,7 @@
             gap: 15px;
             background: rgba(0, 0, 0, 0.2);
             padding: 10px 15px;
-            border-radius: 2px;
+            border-radius: 6px;
             font-size: 0.85rem;
         }
 
@@ -1222,7 +1221,7 @@
                 text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
             }
             49% {
-                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.75), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -0.05em -0.025em 0 rgba(255, 0, 0, 0.75), 0.025em 0.025em 0 rgba(0, 255, 0, 0.755), -0.05em -0.05em 0 rgba(0, 0, 255, 0.75);
             }
             50% {
                 text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0.025em 0 rgba(0, 255, 0, 0.75), 0 0.05em 0 rgba(0, 0, 255, 0.75);
@@ -1600,7 +1599,7 @@
                 <a href="https://www.tiktok.com/@theravem" target="_blank" class="social-card cyber-card">
                     <div class="social-icon-wrapper">
                         <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.52-4.06-1.39-.33-.25-.63-.53-.9-.85-.02 2.81.01 5.62-.02 8.42-.11 2.22-1.07 4.38-2.82 5.76-2.14 1.69-5.11 2.23-7.75 1.43-2.77-.85-4.96-3.41-5.32-6.28-.46-3.7 2.05-7.39 5.72-8.03.45-.08.91-.12 1.37-.12.02 3.82-.01 7.64.01 11.46.01.27.05.54.12.8.44 1.47 2.21 2.22 3.59 1.53 1.25-.62 1.83-2.13 1.54-3.49-.07-.35-.22-.68-.45-.96-.45-.55-1.12-.9-1.81-.92v-3.98c2.47-.04 4.95-.01 7.42-.02.01-4.22-.01-8.44.01-12.66z"/>
+                            <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.11 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.52-4.06-1.39-.33-.25-.63-.53-.9-.85-.02 2.81.01 5.62-.02 8.42-.11 2.22-1.07 4.38-2.82 5.76-2.14 1.69-5.11 2.23-7.75 1.43-2.77-.85-4.96-3.41-5.32-6.28-.46-3.7 2.05-7.39 5.72-8.03.45-.08.91-.12 1.37-.12.02 3.82-.01 7.64.01 11.46.01.27.05.54.12.8.44 1.47 2.21 2.22 3.59 1.53 1.25-.62 1.83-2.13 1.54-3.49-.07-.35-.22-.68-.45-.96-.45-.55-1.12-.9-1.81-.92v-3.98c2.47-.04 4.95-.01 7.42-.02.01-4.22-.01-8.44.01-12.66z"/>
                         </svg>
                     </div>
                     <div class="social-title">TikTok</div>
@@ -2140,6 +2139,14 @@
         }
 
         // --- SEQUENCER SCHEDULER ---
+        const NOTES = {
+            A1: 55.00, Bb1: 58.27, Gs1: 51.91,
+            A2: 110.00, C2: 65.41, D2: 73.42, B2: 98.00, Gs2: 103.83,
+            A3: 220.00, C3: 130.81, E3: 164.81, F3: 174.61, G3: 196.00, B3: 246.94,
+            A4: 440.00, C4: 261.63, E4: 329.63, F4: 349.23, G4: 392.00, B4: 493.88, D4: 293.66,
+            C5: 523.25, Eb5: 622.25, E5: 659.25
+        };
+
         function scheduleNote(step, time) {
             if (currentTrack === 'theravemomo') {
                 if (step % 4 === 0) synthKick(time);
@@ -2415,6 +2422,69 @@
                 toast.classList.remove('show');
             }, 3500);
         }
+
+        /* ==========================================================================
+           😜 WHIMSY INJECTOR: EERIE CURSOR EYE-TRACKING & TRINKET SPARKLES
+           ========================================================================== */
+
+        // 1. Mouse-move Eye Tracking
+        document.addEventListener('mousemove', (e) => {
+            const eyes = document.querySelectorAll('.momo-eye');
+            eyes.forEach(eye => {
+                const rect = eye.getBoundingClientRect();
+                const eyeX = rect.left + rect.width / 2;
+                const eyeY = rect.top + rect.height / 2;
+                
+                const angle = Math.atan2(e.clientY - eyeY, e.clientX - eyeX);
+                // limit maximum pupil movement offset (10px max translation)
+                const distance = Math.min(10, Math.hypot(e.clientX - eyeX, e.clientY - eyeY) / 35);
+                
+                const px = Math.cos(angle) * distance;
+                const py = Math.sin(angle) * distance;
+                
+                eye.style.setProperty('--pupil-x', `${px}px`);
+                eye.style.setProperty('--pupil-y', `${py}px`);
+            });
+        });
+
+        // 2. Interactive Click Particle Shower ("Trinket Drop")
+        document.addEventListener('click', (e) => {
+            // Avoid triggering on text inputs or buttons to protect form interaction
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'BUTTON' || e.target.closest('a')) {
+                return;
+            }
+            
+            const particle = document.createElement('div');
+            const isPlur = bodyElement.classList.contains('theme-plur');
+            
+            // Spooky trinkets for Creepy mode, cute rave toys for PLUR mode!
+            const emojis = isPlur ? ['💖', '🫶🏼', '🌈', '🦆', '✨', '🍬', '🌟'] : ['👻', '💀', '👽', '👁️', '🟢', '🕸️', '🍭'];
+            const randomEmoji = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            particle.textContent = randomEmoji;
+            particle.style.position = 'fixed';
+            particle.style.left = `${e.clientX - 12}px`;
+            particle.style.top = `${e.clientY - 12}px`;
+            particle.style.fontSize = '1.6rem';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '9999';
+            particle.style.userSelect = 'none';
+            particle.style.transition = 'all 1s cubic-bezier(0.215, 0.61, 0.355, 1)';
+            
+            document.body.appendChild(particle);
+            
+            // Trigger animation frame drift
+            requestAnimationFrame(() => {
+                const driftX = Math.random() * 60 - 30; // random left/right wobble
+                particle.style.transform = `translate(${driftX}px, -70px) scale(1.4) rotate(${Math.random() * 60 - 30}deg)`;
+                particle.style.opacity = '0';
+            });
+            
+            // Clean up node
+            setTimeout(() => {
+                particle.remove();
+            }, 1000);
+        });
     </script>
 </body>
 </html>
