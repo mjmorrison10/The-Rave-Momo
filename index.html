@@ -422,11 +422,12 @@
             align-items: center;
         }
 
-        .momo-svg-graphic {
+        .momo-graphic-logo {
             width: 100%;
+            height: auto;
             max-width: 320px;
             filter: drop-shadow(0 0 15px var(--accent-glow));
-            transition: all 0.5s ease;
+            transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .lore-content h2 {
@@ -1122,20 +1123,20 @@
             font-size: 0.98rem;
         }
 
-        /* Booking Section with Stacked Horizontal Grid (No Laptop Squish / No Dead Space!) */
+        /* Booking Section with Stacked Horizontal Grid */
         .booking-section {
             padding: 80px 0 120px 0;
         }
 
         .booking-card {
-            max-width: 1050px; /* expanded width for complete horizontal readability */
+            max-width: 1050px;
             margin: 0 auto;
             padding: 50px 40px;
             box-shadow: 0 15px 45px rgba(0,0,0,0.5);
             text-align: center;
         }
 
-        /* Spacious Horizontal Rider Grid (Promoter Update) */
+        /* Spacious Horizontal Rider Grid */
         .rider-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1244,7 +1245,7 @@
             flex-wrap: wrap;
         }
 
-        /* Spacious Full-Width Grid Form (CRO update) */
+        /* Spacious Full-Width Grid Form */
         .booking-form {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -1379,7 +1380,7 @@
                 text-shadow: 0.025em 0.05em 0 rgba(255, 0, 0, 0.75), 0.05em 0.025em 0 rgba(0, 255, 0, 0.75), 0 0.05em 0 rgba(0, 0, 255, 0.75);
             }
             100% {
-                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 0, 255, 0.75);
+                text-shadow: -0.025em 0 0 rgba(255, 0, 0, 0.75), -0.025em -0.025em 0 rgba(0, 255, 0, 0.75), -0.025em -0.05em 0 rgba(0, 255, 0, 0.75);
             }
         }
 
@@ -1479,25 +1480,9 @@
     <section class="container" id="about">
         <div class="duality-grid">
             
+            <!-- Real Official Brand Logo Placeholder Swapped Dynamically (Brand Guardian update) -->
             <div class="momo-graphic-container cyber-card">
-                <svg class="momo-svg-graphic" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M 100 20 C 50 20, 20 50, 20 100 C 20 140, 45 180, 100 180 C 155 180, 180 140, 180 100 C 180 50, 150 20, 100 20 Z" 
-                          fill="none" stroke="var(--accent-color)" stroke-width="4" stroke-dasharray="3,3" id="svg-mask-contour"/>
-                    
-                    <circle cx="65" cy="90" r="28" fill="none" stroke="var(--accent-color)" stroke-width="3" />
-                    <circle cx="65" cy="90" r="8" fill="var(--momo-eyes-color)" id="svg-pupil-left"/>
-                    
-                    <circle cx="135" cy="90" r="28" fill="none" stroke="var(--accent-color)" stroke-width="3" />
-                    <circle cx="135" cy="90" r="8" fill="var(--momo-eyes-color)" id="svg-pupil-right"/>
-                    
-                    <path d="M 50 145 C 75 165, 125 165, 150 145" fill="none" stroke="var(--accent-color)" stroke-width="4" id="svg-mouth"/>
-                    
-                    <g id="svg-decorations">
-                        <line x1="30" y1="40" x2="45" y2="55" stroke="var(--accent-secondary)" stroke-width="2" />
-                        <line x1="170" y1="40" x2="155" y2="55" stroke="var(--accent-secondary)" stroke-width="2" />
-                        <line x1="100" y1="170" x2="100" y2="190" stroke="var(--accent-secondary)" stroke-width="2" />
-                    </g>
-                </svg>
+                <img src="eyes.png" id="about-momo-logo" class="momo-graphic-logo" alt="The Rave Momo Official Logo">
             </div>
 
             <div class="lore-content">
@@ -1833,7 +1818,7 @@
             
             <div class="booking-card cyber-card">
                 
-                <!-- Scarcity / Availability Agent Badge (Talent Agent Update) -->
+                <!-- Scarcity / Availability Agent Badge -->
                 <div class="status-badge" id="booking-status-badge">
                     <span class="status-dot"></span>
                     <span>Now Booking: Fall / Winter 2026</span>
@@ -1852,7 +1837,7 @@
                     </a>
                 </div>
 
-                <!-- Spacious Stacked Layout: Rider Grid above Form (No dead space, perfect readability!) -->
+                <!-- Spacious Stacked Layout: Rider Grid above Form -->
                 <div class="rider-panel-title-wrapper" style="margin-top: 50px;">
                     <span class="rider-panel-title" id="rider-panel-title-text">Touring Rider & Logistics</span>
                     <span class="rider-panel-meta">Standard B2B Terms</span>
@@ -1987,6 +1972,9 @@
         const submitBtn = document.getElementById('submit-btn');
         const galleryTitle = document.getElementById('gallery-title');
 
+        // Dynamic logo img tag (Brand Guardian update)
+        const aboutMomoLogo = document.getElementById('about-momo-logo');
+
         // SVG details
         const svgMouth = document.getElementById('svg-mouth');
         const svgMaskContour = document.getElementById('svg-mask-contour');
@@ -2029,11 +2017,9 @@
                 riderPanelTitleText.textContent = "Meet-up Guide & Comfort";
                 bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Meetup Availability: Fall / Winter 2026";
                 
-                // Morph SVG into happy PLUR style
-                svgMouth.setAttribute('d', 'M 60 140 C 80 170, 120 170, 140 140');
-                svgMaskContour.setAttribute('stroke-dasharray', '0');
-                svgPupilLeft.setAttribute('r', '12');
-                svgPupilRight.setAttribute('r', '12');
+                // Swap Official Logo for PLUR mode (Glasses.png)
+                aboutMomoLogo.src = "glasses.png";
+                aboutMomoLogo.style.filter = "drop-shadow(0 0 20px rgba(255, 0, 170, 0.5))";
             } else {
                 bodyElement.classList.remove('theme-plur');
                 logoIcon.textContent = '👻';
@@ -2060,11 +2046,9 @@
                 riderPanelTitleText.textContent = "Touring Rider & Logistics";
                 bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Now Booking: Fall / Winter 2026";
 
-                // Morph SVG back to creepy horror style
-                svgMouth.setAttribute('d', 'M 50 145 C 75 165, 125 165, 150 145');
-                svgMaskContour.setAttribute('stroke-dasharray', '3,3');
-                svgPupilLeft.setAttribute('r', '8');
-                svgPupilRight.setAttribute('r', '8');
+                // Swap Official Logo back to Creepy mode (Eyes.png)
+                aboutMomoLogo.src = "eyes.png";
+                aboutMomoLogo.style.filter = "drop-shadow(0 0 20px rgba(57, 255, 20, 0.5))";
             }
         });
 
