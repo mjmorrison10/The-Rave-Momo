@@ -1482,7 +1482,8 @@
             
             <!-- Real Official Brand Logo Placeholder Swapped Dynamically (Brand Guardian update) -->
             <div class="momo-graphic-container cyber-card">
-                <img src="rave%20momo%20eyes.png" id="about-momo-logo" class="momo-graphic-logo" alt="The Rave Momo Official Logo">
+                <!-- Default is glasses for Creepy mode (Brand Guardian corrective update) -->
+                <img src="rave momo glasses.png" id="about-momo-logo" class="momo-graphic-logo" alt="The Rave Momo Official Logo">
             </div>
 
             <div class="lore-content">
@@ -2013,18 +2014,12 @@
                 successToast.textContent = 'PLUR vibes transmitted! 💖';
                 submitBtn.textContent = 'Send Good Vibes';
 
-                // Morph SVG into happy PLUR style
-                svgMouth.setAttribute('d', 'M 60 140 C 80 170, 120 170, 140 140');
-                svgMaskContour.setAttribute('stroke-dasharray', '0');
-                svgPupilLeft.setAttribute('r', '12');
-                svgPupilRight.setAttribute('r', '12');
-
                 // Swap Rider title and badge for PLUR mode
                 riderPanelTitleText.textContent = "Meet-up Guide & Comfort";
                 bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Meetup Availability: Fall / Winter 2026";
                 
-                // Swap Official Logo for PLUR mode (Glasses Logo)
-                aboutMomoLogo.src = "rave%20momo%20glasses.png";
+                // Swap Official Logo for PLUR mode (Molly Eyes Logo - Dilated Pupils!)
+                aboutMomoLogo.src = "rave momo eyes.png";
                 aboutMomoLogo.style.filter = "drop-shadow(0 0 20px rgba(255, 0, 170, 0.5))";
             } else {
                 bodyElement.classList.remove('theme-plur');
@@ -2052,8 +2047,8 @@
                 riderPanelTitleText.textContent = "Touring Rider & Logistics";
                 bookingStatusBadge.querySelector('span:nth-child(2)').textContent = "Now Booking: Fall / Winter 2026";
 
-                // Swap Official Logo back to Creepy mode (Eyes Logo)
-                aboutMomoLogo.src = "rave%20momo%20eyes.png";
+                // Swap Official Logo back to Creepy mode (Pixel Glasses Logo - Cover the eyes!)
+                aboutMomoLogo.src = "rave momo glasses.png";
                 aboutMomoLogo.style.filter = "drop-shadow(0 0 20px rgba(57, 255, 20, 0.5))";
             }
         });
@@ -2328,38 +2323,6 @@
             osc2.start(time);
             osc1.stop(time + duration);
             osc2.stop(time + duration);
-        }
-
-        function synthGothicBell(freq, time) {
-            let osc = audioCtx.createOscillator();
-            let overtone = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, time);
-            overtone.type = 'triangle';
-            overtone.frequency.setValueAtTime(freq * 1.503, time);
-            gain.gain.setValueAtTime(0.2, time);
-            gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.8);
-            osc.connect(gain);
-            overtone.connect(gain);
-            gain.connect(mainGain);
-            osc.start(time);
-            overtone.start(time);
-            osc.stop(time + 1.8);
-            overtone.stop(time + 1.8);
-        }
-
-        function synthSubDrone(freq, time, duration) {
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(freq, time);
-            gain.gain.setValueAtTime(0.2, time);
-            gain.gain.exponentialRampToValueAtTime(0.001, time + duration);
-            osc.connect(gain);
-            gain.connect(mainGain);
-            osc.start(time);
-            osc.stop(time + duration);
         }
 
         // --- SEQUENCER SCHEDULER ---
